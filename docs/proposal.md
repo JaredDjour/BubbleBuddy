@@ -55,3 +55,4 @@ The playing-screen will show Bubble Buddy (a cute little dragon/dinosaur) runnin
     * Fire
     * Ice
 * Have new enemies appear as you advance
+* Implement Scoreboard
