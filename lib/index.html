@@ -21,165 +21,174 @@
     <title>Bubble Buddy</title>
 </head>
 <body>
-    <script src="bundle.js"></script>
     <canvas id="bbCanvas" width="650" height="400";"></canvas>
+    <script src="bundle.js"></script>
     <script>
-        const canvas = document.getElementById("bbCanvas");
-        const ctx = canvas.getContext("2d");
+        // const canvas = document.getElementById("bbCanvas");
+        // const ctx = canvas.getContext("2d");
           
-     
-        var playerHeight = 50;
-        var playerWidth = 25;
-        var playerX = (canvas.width - playerWidth) / 2; //where the player renders on start
-        var playerY = (canvas.height - playerHeight) - 10;
-        var rightPressed = false;
-        var leftPressed = false;
-        var upPressed = false;
-        var downPressed = false;
-        var spacePressed = false;
+        // var player;
+        //     loadImage("./images/bbSprite.png").then(image => {
+        //         player = image;
+        //         draw();
+        //     })
+         
+        // var playerHeight = 50;
+        // var playerWidth = 40;
+        // var playerX = (canvas.width - playerWidth) / 2; //where the player renders on start
+        // var playerY = (canvas.height - playerHeight) - 10;
+        // var rightPressed = false;
+        // var leftPressed = false;
+        // var upPressed = false;
+        // var downPressed = false;
+        // var spacePressed = false;
+
+        // var x = canvas.width / 2;
+        // var y = canvas.height - 30;
+
+        // var dx = 1;
+        // var dy = -1;
 
 
-        var x = canvas.width / 2;
-        var y = canvas.height - 30;
-        var dx = 1;
-        var dy = -1;
-        var bubbleRadius = 15;
+        // var bubbleRadius = 15;
 
    
-        var enemyRowCount = 1;
-        var enemyColumnCount = 3;
-        var enemyWidth = 20;
-        var enemyHeight = 20;
-        var enemyPadding = 10;
-        var enemyOffsetTop = 355;
-        var enemyOffsetLeft = 365;
-        var score = 0;
-        var lives = 5;
-        document.addEventListener("keydown", keyDownHandler, false);
-        document.addEventListener("keyup", keyUpHandler, false);
-        // document.addEventListener("mousemove", mouseMoveHandler, false);
+        // var enemyRowCount = 1;
+        // var enemyColumnCount = 3;
+        // var enemyWidth = 20;
+        // var enemyHeight = 20;
+        // var enemyPadding = 10;
+        // var enemyOffsetTop = 355;
+        // var enemyOffsetLeft = 365;
+        // var score = 0;
+        // var lives = 5;
+        
+        // document.addEventListener("keydown", keyDownHandler, false);
+        // document.addEventListener("keyup", keyUpHandler, false);
+        // // document.addEventListener("mousemove", mouseMoveHandler, false);
 
 
 
-        var enemies = [];
-        for (var col = 0; col < enemyColumnCount; col++) {
-            enemies[col] = [];
-            for (var row = 0; row < enemyRowCount; row++) {
-                enemies[col][row] = { x: 0, y: 0, status: 1 };
-            }
-        }
+        // var enemies = [];
+        // for (var col = 0; col < enemyColumnCount; col++) {
+        //     enemies[col] = [];
+        //     for (var row = 0; row < enemyRowCount; row++) {
+        //         enemies[col][row] = { x: 0, y: 0, status: 1 };
+        //     }
+        // }
 
-        function keyDownHandler(e) {
-            if (e.key == "Right" || e.key == "ArrowRight") {
-                rightPressed = true;
-            }
-            else if (e.key == "Left" || e.key == "ArrowLeft") {
-                leftPressed = true;
-            }
-            else if (e.key == "Up" || e.key == "ArrowUp") {
-                upPressed = true;
-            }
-            else if (e.key == "Down" || e.key == "ArrowDown") {
-                downPressed = true;
-            }
-            else if (e.which == "32" || e.code == "Space") {
-                spacePressed = true;
-            }
+        // function keyDownHandler(e) {
+        //     if (e.key == "Right" || e.key == "ArrowRight") {
+        //         rightPressed = true;
+        //     }
+        //     else if (e.key == "Left" || e.key == "ArrowLeft") {
+        //         leftPressed = true;
+        //     }
+        //     else if (e.key == "Up" || e.key == "ArrowUp") {
+        //         upPressed = true;
+        //     }
+        //     else if (e.key == "Down" || e.key == "ArrowDown") {
+        //         downPressed = true;
+        //     }
+        //     else if (e.which == "32" || e.code == "Space") {
+        //         spacePressed = true;
+        //     }
 
-        }
+        // }
 
-        function keyUpHandler(e) {
-            if (e.key == "Right" || e.key == "ArrowRight") {
-                rightPressed = false;
-            }
-            else if (e.key == "Left" || e.key == "ArrowLeft") {
-                leftPressed = false;
-            }
-            else if (e.key == "Up" || e.key == "ArrowUp") {
-                upPressed = false;
-            }
-            else if (e.key == "Down" || e.key == "ArrowDown") {
-                downPressed = false;
-            }
-            else if (e.which == "32" || e.code == "Space") {
-                spacePressed = false;
-            }
-        }
+        // function keyUpHandler(e) {
+        //     if (e.key == "Right" || e.key == "ArrowRight") {
+        //         rightPressed = false;
+        //     }
+        //     else if (e.key == "Left" || e.key == "ArrowLeft") {
+        //         leftPressed = false;
+        //     }
+        //     else if (e.key == "Up" || e.key == "ArrowUp") {
+        //         upPressed = false;
+        //     }
+        //     else if (e.key == "Down" || e.key == "ArrowDown") {
+        //         downPressed = false;
+        //     }
+        //     else if (e.which == "32" || e.code == "Space") {
+        //         spacePressed = false;
+        //     }
+        // }
 
-        function collisionDetection() {
-            for (var col = 0; col < enemyColumnCount; col++) {
-                for (var row = 0; row < enemyRowCount; row++) {
-                    var enemy = enemies[col][row];
-                    if(enemy.status == 1){
-                        if (x > enemy.x && x < (enemy.x + enemyWidth) && y > enemy.y && y < enemy.y + enemyHeight) {
-                            dy = -dy;
-                            enemy.status = 0;
-                            // score++;
-                            // if (score == enemyRowCount * enemyColumnCount) {
-                            //     alert("YOU WIN, CONGRATULATIONS!");
-                            //     document.location.reload();
-                            //     // clearInterval(interval);
-                            // }
-                        }
-                    }
-                }
-            }
-        }
+        // function collisionDetection() {
+        //     for (var col = 0; col < enemyColumnCount; col++) {
+        //         for (var row = 0; row < enemyRowCount; row++) {
+        //             var enemy = enemies[col][row];
+        //             if(enemy.status == 1){
+        //                 if (x > enemy.x && x < (enemy.x + enemyWidth) && y > enemy.y && y < enemy.y + enemyHeight) {
+        //                     dy = -dy;
+        //                     enemy.status = 0;
+        //                     // score++;
+        //                     // if (score == enemyRowCount * enemyColumnCount) {
+        //                     //     alert("YOU WIN, CONGRATULATIONS!");
+        //                     //     document.location.reload();
+        //                     //     // clearInterval(interval);
+        //                     // }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         // function mouseMoveHandler(e) {
         //     var relativeX = e.clientX - canvas.offsetLeft;
         //     if (relativeX > 0 && relativeX < canvas.width) {
         //         playerX = relativeX - playerWidth / 2;
         //     }
         // }
-        function drawLives() {
-            ctx.font = "18px Calibri";
-            ctx.fillStyle = "skyblue";
-            ctx.fillText("Lives: " + lives, canvas.width - 65, 20);
-        }
+        // function drawLives() {
+        //     ctx.font = "18px Calibri";
+        //     ctx.fillStyle = "skyblue";
+        //     ctx.fillText("Lives: " + lives, canvas.width - 65, 20);
+        // }
     
-        function drawBubble() {
-            ctx.beginPath();
-            ctx.arc(x, y, bubbleRadius, 0, Math.PI * 2);
-            ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
-            // ctx.fillStyle = "#0095DD";
-            // ctx.fill();
-            ctx.stroke();
-            ctx.closePath();
-        }
+        // function drawBubble() {
+        //     ctx.beginPath();
+        //     ctx.arc(x, y, bubbleRadius, 0, Math.PI * 2);
+        //     ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
+        //     // ctx.fillStyle = "#0095DD";
+        //     // ctx.fill();
+        //     ctx.stroke();
+        //     ctx.closePath();
+        // }
 
 
 
 
-        function drawEnemies() {
-            for (var col = 0; col < enemyColumnCount; col++) {
-                for (var row = 0; row < enemyRowCount; row++) {
-                    if(enemies[col][row].status == 1) {
-                        var enemyX = (col * (enemyWidth + enemyPadding)) + enemyOffsetLeft;
-                        var enemyY = (row * (enemyHeight + enemyPadding)) + enemyOffsetTop;
-                        enemies[col][row].x = enemyX;
-                        enemies[col][row].y = enemyY;
-                        ctx.beginPath();
-                        ctx.rect(enemyX, enemyY, enemyWidth, enemyHeight);
-                        ctx.fillStyle = "red";
-                        ctx.fill();
-                        ctx.closePath();
-                    }
-                }
-            }
-        }
-        function drawScore() {
-            ctx.font = "18px Calibri";
-            ctx.fillStyle = "skyblue";
-            ctx.fillText("Score: " + score, 8, 20);
-        }
+        // function drawEnemies() {
+        //     for (var col = 0; col < enemyColumnCount; col++) {
+        //         for (var row = 0; row < enemyRowCount; row++) {
+        //             if(enemies[col][row].status == 1) {
+        //                 var enemyX = (col * (enemyWidth + enemyPadding)) + enemyOffsetLeft;
+        //                 var enemyY = (row * (enemyHeight + enemyPadding)) + enemyOffsetTop;
+        //                 enemies[col][row].x = enemyX;
+        //                 enemies[col][row].y = enemyY;
+        //                 ctx.beginPath();
+        //                 ctx.rect(enemyX, enemyY, enemyWidth, enemyHeight);
+        //                 ctx.fillStyle = "red";
+        //                 ctx.fill();
+        //                 ctx.closePath();
+        //             }
+        //         }
+        //     }
+        // }
+        // function drawScore() {
+        //     ctx.font = "18px Calibri";
+        //     ctx.fillStyle = "skyblue";
+        //     ctx.fillText("Score: " + score, 8, 20);
+        // }
 
-        function scoreAdder() {
-            // ctx.beginPath();
-            setInterval(drawScore(), score++, 1000);
-            // ctx.closePath();
-        }
+        // function scoreAdder() {
+        //     // ctx.beginPath();
+        //     setInterval(drawScore(), score++, 1000);
+        //     // ctx.closePath();
+        // }
 
-        scoreAdder()
+        // scoreAdder()
+
     // function loadImage(url) {
     //     return new Promise(resolve => {
     //         const image = new Image();
@@ -189,115 +198,79 @@
     //         image.src = url;
     //     });
     // }
-    // loadImage("./images/bubbleBobbleSprite.png").then(image => {
-    //     ctx.drawImage(image,
-    //              530, 85, // part of image to take -- width, height
-    //              30, 42, // zoom in and out on that part
-    //              100, 250, // where to show up x-axis, y-axis 
-    //              20, 40) // width, height of sprite
-    //     // 0, 0, 100, 100,
-    //     // 20, 20, 10, 10);
-    // });
-    function loadImage(url) {
-        return new Promise(resolve => {
-            const image = new Image();
-            image.addEventListener("load", () => {
-                resolve(image);
-            });
-            image.src = url;
-        });
-    }
-    // loadImage("./images/bbSprite.png").then(image => {
-    //         ctx.drawImage(image, 
-    //             0, 0, // part of image to take -- width, height
-    //             170, 170, // zoom in and out on that part
-    //             playerX, playerY, // where to show up x-axis, y-axis 
-    //             40, 50) // width, height of sprite
-    //     });
-        
-    function drawPlayer() {
-        ctx.beginPath();
-        ctx.rect(playerX, playerY, playerWidth, playerHeight);
-        ctx.fillStyle = "#0095DD";
-        ctx.fill();
-        ctx.closePath();
-    }
-
-
-    var player;
-    loadImage("./images/bbSprite.png").then(image => {
-        player = image;
-        draw();
-    } )
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawEnemies();
-        drawBubble();
-        // drawPlayer();
-        collisionDetection();
-        drawLives();     
-        drawScore();
-
-        ctx.drawImage(player,
-            0, 0, // part of image to take -- width, height
-            170, 170, // zoom in and out on that part
-            playerX, playerY, // where to show up x-axis, y-axis 
-            40, 50) // width, height of sprite
 
 
 
-        // setInterval(drawScore(), score++, 10000);
-        x += dx;
-        y += dy;
 
-        // if (x + dx < bubbleRadius || x + dx > canvas.width - bubbleRadius) {
-        //     dx = -dx;
-        // }
+    // function draw() {
+    //     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //     drawEnemies();
+    //     drawBubble();
+    //     // drawPlayer();
+    //     collisionDetection();
+    //     drawLives();     
+    //     drawScore();
 
-        // if (y + dy < bubbleRadius) {
-        //     dy = -dy;
-        // } else if (y + dy > canvas.height - bubbleRadius) {
-        //     if (x > playerX && x < playerX + playerWidth) {
-        //         dy = -dy;
-        //     }
-        //     else {
-        //        lives--;
-        //         if (!lives) {
-        //             alert("GAME OVER");
-        //             document.location.reload();
-        //             // clearInterval(interval); // Needed for Chrome to end game
-        //         }
-        //         else {
-        //             x = canvas.width / 2;
-        //             y = canvas.height - 30;
-        //             dx = 1;
-        //             dy = -1;
-        //             playerX = (canvas.width - playerWidth) / 2;
-        //         };
-        //     }
-        // }
+    //     ctx.drawImage(player,
+    //         0, 0, // part of image to take -- width, height
+    //         170, 170, // zoom in and out on that part
+    //         playerX, playerY, // where to show up x-axis, y-axis 
+    //         playerWidth, playerHeight) // width, height of sprite
 
-        if (rightPressed && playerX < canvas.width - playerWidth) {
-            playerX += 6;
-        }
-        else if (leftPressed && playerX > 0) {
-            playerX -= 6;
-        }
-        else if (upPressed && playerY > 0) {
-            playerY -= 6;
-        }
-        else if (downPressed && playerY < (canvas.height - playerHeight - 10)) {
-            playerY += 6;
-        }
-        else if (spacePressed){
-            drawBubble();
-        }
-        // if (rightPressed || leftPressed || downPressed || upPressed || spacePressed){
-        //     score++
-        // }
 
-       requestAnimationFrame(draw); 
-    }
+
+    //     // setInterval(drawScore(), score++, 10000);
+    //     x += dx;
+    //     y += dy;
+
+    //     // if (x + dx < bubbleRadius || x + dx > canvas.width - bubbleRadius) {
+    //     //     dx = -dx;
+    //     // }
+
+    //     // if (y + dy < bubbleRadius) {
+    //     //     dy = -dy;
+    //     // } else if (y + dy > canvas.height - bubbleRadius) {
+    //     //     if (x > playerX && x < playerX + playerWidth) {
+    //     //         dy = -dy;
+    //     //     }
+    //     //     else {
+    //     //        lives--;
+    //     //         if (!lives) {
+    //     //             alert("GAME OVER");
+    //     //             document.location.reload();
+    //     //             // clearInterval(interval); // Needed for Chrome to end game
+    //     //         }
+    //     //         else {
+    //     //             x = canvas.width / 2;
+    //     //             y = canvas.height - 30;
+    //     //             dx = 1;
+    //     //             dy = -1;
+    //     //             playerX = (canvas.width - playerWidth) / 2;
+    //     //         };
+    //     //     }
+    //     // }
+
+    //     if (rightPressed && playerX < canvas.width - playerWidth) {
+    //         playerX += 6;
+    //     }
+    //     else if (leftPressed && playerX > 0) {
+    //         playerX -= 6;
+    //     }
+    //     else if (upPressed && playerY > 0) {
+    //         playerY -= 6;
+    //     }
+    //     else if (downPressed && playerY < (canvas.height - playerHeight - 10)) {
+    //         playerY += 6;
+    //     }
+    //     else if (spacePressed){
+    //         drawBubble();
+    //     }
+    //     // if (rightPressed || leftPressed || downPressed || upPressed || spacePressed){
+    //     //     score++
+    //     // }
+
+    //    requestAnimationFrame(draw); 
+    // }
 
 
     </script>
