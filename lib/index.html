@@ -36,35 +36,36 @@
         var leftPressed = false;
         var upPressed = false;
         var downPressed = false;
+        var spacePressed = false;
 
 
         var x = canvas.width / 2;
         var y = canvas.height - 30;
-        // var dx = 1;
-        // var dy = -1;
-        // var ballRadius = 10;
-        
-        draw();
-        var brickRowCount = 1;
-        var brickColumnCount = 3;
-        var brickWidth = 20;
-        var brickHeight = 20;
-        var brickPadding = 10;
-        var brickOffsetTop = 355;
-        var brickOffsetLeft = 365;
+        var dx = 1;
+        var dy = -1;
+        var bubbleRadius = 15;
+
+   
+        var enemyRowCount = 1;
+        var enemyColumnCount = 3;
+        var enemyWidth = 20;
+        var enemyHeight = 20;
+        var enemyPadding = 10;
+        var enemyOffsetTop = 355;
+        var enemyOffsetLeft = 365;
         var score = 0;
-        var lives = 3;
+        var lives = 5;
         document.addEventListener("keydown", keyDownHandler, false);
         document.addEventListener("keyup", keyUpHandler, false);
         // document.addEventListener("mousemove", mouseMoveHandler, false);
 
 
 
-        var bricks = [];
-        for (var col = 0; col < brickColumnCount; col++) {
-            bricks[col] = [];
-            for (var row = 0; row < brickRowCount; row++) {
-                bricks[col][row] = { x: 0, y: 0, status: 1 };
+        var enemies = [];
+        for (var col = 0; col < enemyColumnCount; col++) {
+            enemies[col] = [];
+            for (var row = 0; row < enemyRowCount; row++) {
+                enemies[col][row] = { x: 0, y: 0, status: 1 };
             }
         }
 
@@ -81,6 +82,10 @@
             else if (e.key == "Down" || e.key == "ArrowDown") {
                 downPressed = true;
             }
+            else if (e.which == "32" || e.code == "Space") {
+                spacePressed = true;
+            }
+
         }
 
         function keyUpHandler(e) {
@@ -96,22 +101,25 @@
             else if (e.key == "Down" || e.key == "ArrowDown") {
                 downPressed = false;
             }
+            else if (e.which == "32" || e.code == "Space") {
+                spacePressed = false;
+            }
         }
 
         function collisionDetection() {
-            for (var col = 0; col < brickColumnCount; col++) {
-                for (var row = 0; row < brickRowCount; row++) {
-                    var brick = bricks[col][row];
-                    if(brick.status == 1){
-                        if (x > brick.x && x < (brick.x + brickWidth) && y > brick.y && y < brick.y + brickHeight) {
+            for (var col = 0; col < enemyColumnCount; col++) {
+                for (var row = 0; row < enemyRowCount; row++) {
+                    var enemy = enemies[col][row];
+                    if(enemy.status == 1){
+                        if (x > enemy.x && x < (enemy.x + enemyWidth) && y > enemy.y && y < enemy.y + enemyHeight) {
                             dy = -dy;
-                            brick.status = 0;
-                            score++;
-                            if (score == brickRowCount * brickColumnCount) {
-                                alert("YOU WIN, CONGRATULATIONS!");
-                                document.location.reload();
-                                // clearInterval(interval);
-                            }
+                            enemy.status = 0;
+                            // score++;
+                            // if (score == enemyRowCount * enemyColumnCount) {
+                            //     alert("YOU WIN, CONGRATULATIONS!");
+                            //     document.location.reload();
+                            //     // clearInterval(interval);
+                            // }
                         }
                     }
                 }
@@ -124,43 +132,34 @@
         //     }
         // }
         function drawLives() {
-            ctx.font = "16px Arial";
-            ctx.fillStyle = "#0095DD";
+            ctx.font = "18px Calibri";
+            ctx.fillStyle = "skyblue";
             ctx.fillText("Lives: " + lives, canvas.width - 65, 20);
         }
-        function drawScore() {
-            ctx.font = "16px Arial";
-            ctx.fillStyle = "#0095DD";
-            ctx.fillText("Score: " + score, 8, 20);
-        }
-
-        // function drawBall() {
-        //     ctx.beginPath();
-        //     ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-        //     ctx.fillStyle = "#0095DD";
-        //     ctx.fill();
-        //     ctx.closePath();
-        // }
-
-       function drawPlayer() {
+    
+        function drawBubble() {
             ctx.beginPath();
-            ctx.rect(playerX, playerY, playerWidth, playerHeight);
-            ctx.fillStyle = "#0095DD";
-            ctx.fill();
+            ctx.arc(x, y, bubbleRadius, 0, Math.PI * 2);
+            ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
+            // ctx.fillStyle = "#0095DD";
+            // ctx.fill();
+            ctx.stroke();
             ctx.closePath();
         }
 
 
-        function drawBricks() {
-            for (var col = 0; col < brickColumnCount; col++) {
-                for (var row = 0; row < brickRowCount; row++) {
-                    if(bricks[col][row].status == 1) {
-                        var brickX = (col * (brickWidth + brickPadding)) + brickOffsetLeft;
-                        var brickY = (row * (brickHeight + brickPadding)) + brickOffsetTop;
-                        bricks[col][row].x = brickX;
-                        bricks[col][row].y = brickY;
+
+
+        function drawEnemies() {
+            for (var col = 0; col < enemyColumnCount; col++) {
+                for (var row = 0; row < enemyRowCount; row++) {
+                    if(enemies[col][row].status == 1) {
+                        var enemyX = (col * (enemyWidth + enemyPadding)) + enemyOffsetLeft;
+                        var enemyY = (row * (enemyHeight + enemyPadding)) + enemyOffsetTop;
+                        enemies[col][row].x = enemyX;
+                        enemies[col][row].y = enemyY;
                         ctx.beginPath();
-                        ctx.rect(brickX, brickY, brickWidth, brickHeight);
+                        ctx.rect(enemyX, enemyY, enemyWidth, enemyHeight);
                         ctx.fillStyle = "red";
                         ctx.fill();
                         ctx.closePath();
@@ -168,17 +167,37 @@
                 }
             }
         }
+        function drawScore() {
+            ctx.font = "18px Calibri";
+            ctx.fillStyle = "skyblue";
+            ctx.fillText("Score: " + score, 8, 20);
+        }
 
-    loadImage("./images/bubbleBobbleSprite.png").then(image => {
-        ctx.drawImage(image,
-                 530, 85, // part of image to take -- width, height
-                 30, 42, // zoom in and out on that part
-                 100, 250, // where to show up x-axis, y-axis 
-                 20, 40) // width, height of sprite
-        // 0, 0, 100, 100,
-        // 20, 20, 10, 10);
-    });
+        function scoreAdder() {
+            // ctx.beginPath();
+            setInterval(drawScore(), score++, 1000);
+            // ctx.closePath();
+        }
 
+        scoreAdder()
+    // function loadImage(url) {
+    //     return new Promise(resolve => {
+    //         const image = new Image();
+    //         image.addEventListener("load", () => {
+    //             resolve(image);
+    //         });
+    //         image.src = url;
+    //     });
+    // }
+    // loadImage("./images/bubbleBobbleSprite.png").then(image => {
+    //     ctx.drawImage(image,
+    //              530, 85, // part of image to take -- width, height
+    //              30, 42, // zoom in and out on that part
+    //              100, 250, // where to show up x-axis, y-axis 
+    //              20, 40) // width, height of sprite
+    //     // 0, 0, 100, 100,
+    //     // 20, 20, 10, 10);
+    // });
     function loadImage(url) {
         return new Promise(resolve => {
             const image = new Image();
@@ -188,27 +207,56 @@
             image.src = url;
         });
     }
+    // loadImage("./images/bbSprite.png").then(image => {
+    //         ctx.drawImage(image, 
+    //             0, 0, // part of image to take -- width, height
+    //             170, 170, // zoom in and out on that part
+    //             playerX, playerY, // where to show up x-axis, y-axis 
+    //             40, 50) // width, height of sprite
+    //     });
+        
+    function drawPlayer() {
+        ctx.beginPath();
+        ctx.rect(playerX, playerY, playerWidth, playerHeight);
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+    }
+
+
+    var player;
+    loadImage("./images/bbSprite.png").then(image => {
+        player = image;
+        draw();
+    } )
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawBricks();
-        // drawBall();
-        drawPlayer();
+        drawEnemies();
+        drawBubble();
+        // drawPlayer();
         collisionDetection();
+        drawLives();     
         drawScore();
-        drawLives();
+
+        ctx.drawImage(player,
+            0, 0, // part of image to take -- width, height
+            170, 170, // zoom in and out on that part
+            playerX, playerY, // where to show up x-axis, y-axis 
+            40, 50) // width, height of sprite
 
 
-        
-        // x += dx;
-        // y += dy;
 
-        // if (x + dx < ballRadius || x + dx > canvas.width - ballRadius) {
+        // setInterval(drawScore(), score++, 10000);
+        x += dx;
+        y += dy;
+
+        // if (x + dx < bubbleRadius || x + dx > canvas.width - bubbleRadius) {
         //     dx = -dx;
         // }
 
-        // if (y + dy < ballRadius) {
+        // if (y + dy < bubbleRadius) {
         //     dy = -dy;
-        // } else if (y + dy > canvas.height - ballRadius) {
+        // } else if (y + dy > canvas.height - bubbleRadius) {
         //     if (x > playerX && x < playerX + playerWidth) {
         //         dy = -dy;
         //     }
@@ -230,17 +278,23 @@
         // }
 
         if (rightPressed && playerX < canvas.width - playerWidth) {
-            playerX += 7;
+            playerX += 6;
         }
         else if (leftPressed && playerX > 0) {
-            playerX -= 7;
+            playerX -= 6;
         }
         else if (upPressed && playerY > 0) {
-            playerY -= 7;
+            playerY -= 6;
         }
         else if (downPressed && playerY < (canvas.height - playerHeight - 10)) {
-            playerY += 7;
+            playerY += 6;
         }
+        else if (spacePressed){
+            drawBubble();
+        }
+        // if (rightPressed || leftPressed || downPressed || upPressed || spacePressed){
+        //     score++
+        // }
 
        requestAnimationFrame(draw); 
     }
