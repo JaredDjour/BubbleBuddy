@@ -13,33 +13,42 @@
         margin: 0;
     }
 
+.title {
+    display: flex;
+    margin: 20px auto 0px;
+    font-size: 30px;
+    color: #00f400;
+    /* color: black; */
+    /* text-shadow: 2px 2px #00f400; */
+    text-shadow: 2px 2px black;
+    background: white;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    flex-direction: row;
+    max-width: 550px;
+}
+
 canvas {
-    /* background: black; */
     background: white;
     display: block;
-    margin: 55px auto 0 auto;
-    /* border: 3px solid #0079FF; */
-    /* border: 3px solid #dbdbdb; */
+    margin: 0 auto 0 auto;
     border: 1px solid black;
     background-image: url("./lib/images/background.jpg");
     background-size: 650px 400px;
 }
 
-.box {
-    display: flex;
-    flex-direction: column;
-    /* border: 3px solid #ebebeb; */
-    border: 1px solid black;
-    /* background: #cdecf9; */
-    max-width: 410px;
-    margin: 20px auto;
-    background: white;
-}
 
 .links-box {
-    margin-bottom: 20px;
-    margin: auto;
-    padding-top: 10px;
+    margin: auto 5px auto auto;
+    padding: 10px 5px;
+    background: white;
+    border: 1px solid black;
 }
 
 .links {
@@ -53,22 +62,32 @@ canvas {
     /* font-family: fantasy; */
     margin: 10px;
 }
+.get-in-touch {
+    text-align: center;
+    color: #00f400;
+    /* text-shadow: 2px 2px black;  */
+    margin-bottom: 10px;
+}
 .github {
 
 }
 
 .linkedin {
-   
+  
 }
 
 .directions-box {
-    margin: auto;
+    font-size: 18px;
+    margin: auto auto auto 5px;
+    padding: 10px 5px;
+    background: white;
+    border: 1px solid black;
     color: #00f400;
     text-shadow: 1px 1px black;
 }
 
 ol {
-    padding: 10px 25px 10px 44px;
+    padding: 10px 19px 10px 30px;
     font-family: garamond;
     /* font-weight: 600; */
 }
