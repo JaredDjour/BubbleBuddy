@@ -10,7 +10,7 @@ Players will use the arrow keys to guide Bubble Buddy across the screen and use 
 ## Wireframes
 ![Wireframes](https://github.com/JaredDjour/BubbleBuddy/blob/master/wireframes.png?raw=true)
 
-High Scores will be displayed to the left of the playing-screen, while  Links to personal-sites and directions to the game will be displayed to the right.
+Links to personal-sites will be to the left and directions to the game will be displayed to the right.
 
 The playing-screen will show Bubble Buddy (a cute little dragon/dinosaur) running across a -road, with a blue sky and clouds in the background. Enemies will appear as Bubble Buddy travels, which must either be evaded or neutralized. Game intensity/speed will increase as the game ensues. 
 
