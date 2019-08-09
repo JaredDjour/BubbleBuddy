@@ -1,11 +1,13 @@
 .body {
     /* background:  #0079FF; */
-    background:  #00f400;
+    /* background:  #00f400; */
+    background-image: url("./lib/images/background.jpg");
+    opacity: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin: auto;
-    overflow-y: hidden;
+    /* justify-content: center; */
+    /* margin: auto; */
+    overflow: hidden; 
 }
 
 * {
@@ -17,8 +19,8 @@
     display: flex;
     margin: 20px auto 0px;
     font-size: 30px;
-    color: #00f400;
-    /* color: black; */
+    /* color: #00f400; */
+    color: #79d6ff;
     /* text-shadow: 2px 2px #00f400; */
     text-shadow: 2px 2px black;
     background: white;
@@ -40,7 +42,9 @@ canvas {
     margin: 0 auto 0 auto;
     border: 1px solid black;
     background-image: url("./lib/images/background.jpg");
+    opacity: 1.0;
     background-size: 650px 400px;
+    height: 400px;
 }
 
 
@@ -54,7 +58,8 @@ canvas {
 .links {
     font-size: 18px;
     text-decoration: none;
-    color: #00f400;
+    /* color: #00f400; */
+     color: #79d6ff;
     text-shadow: 2px 2px black;
     /* -webkit-text-stroke-width: 1.1px; */
     /* -webkit-text-stroke-color: black; */
@@ -64,7 +69,8 @@ canvas {
 }
 .get-in-touch {
     text-align: center;
-    color: #00f400;
+    /* color: #00f400; */
+    color: #79d6ff;
     /* text-shadow: 2px 2px black;  */
     margin-bottom: 10px;
      text-shadow: 1px 1px black;
@@ -80,10 +86,11 @@ canvas {
 .directions-box {
     font-size: 18px;
     margin: auto auto auto 5px;
-    padding: 10px 5px;
+    padding: 12px 5px;
     background: white;
     border: 1px solid black;
-    color: #00f400;
+    /* color: #00f400; */
+     color: #79d6ff;
     text-shadow: 1px 1px black;
 }
 
