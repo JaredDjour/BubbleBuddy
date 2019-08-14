@@ -1,7 +1,8 @@
 .body {
     /* background:  #0079FF; */
     /* background:  #00f400; */
-    background-image: url("./lib/images/background.jpg");
+    background: #abe1f88a;
+    /* background-image: url("./lib/images/background.jpg"); */
     opacity: 1;
     display: flex;
     flex-direction: column;
