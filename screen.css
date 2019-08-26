@@ -19,7 +19,7 @@
 
 .title {
     display: flex;
-    margin: 60px auto 30px;
+    margin: 60px auto 10px;
     font-size: 40px;
     /* color: #00f400; */
     color: #28baff;
@@ -35,8 +35,9 @@
     display: flex;
     justify-content: center;
     margin: auto;
-    flex-direction: row;
-    max-width: 580px;
+    height: 401px;
+    /* flex-direction: column; */
+    /* max-width: 580px; */
     /* margin-left: -10px; */
 }
 
@@ -54,11 +55,12 @@ canvas {
 
 
 .links-box {
-    margin: auto 5px auto auto;
-    padding: 10px 5px;
+    /* margin: 0 5px auto auto; */
+    padding: 30px 5px 10px;
     background: #e6f8fc;
     /* border: 1px solid black; */
      border-radius: 10px;
+     max-width: 160px;
 }
 
 .links {
@@ -72,6 +74,7 @@ canvas {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     /* font-family: fantasy; */
     margin: 10px;
+    /* text-align: center; */
    
 }
 .get-in-touch {
@@ -94,7 +97,7 @@ canvas {
 .directions-box {
     font-size: 17px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    margin: -20px 5px auto auto;
+    margin: auto auto auto auto;
     padding: 12px 5px;
     background:#e6f8fc;
     /* border: 1px solid black; */
@@ -102,15 +105,17 @@ canvas {
      color: #28baff;
     text-shadow: 1px 1px 1px black;
     border-radius: 10px;
+    max-width: 200px;
+    height: 94%;
 }
 
 ol {
-    padding: 0px 19px 0px 30px;
+    padding: 0px 19px 5px 30px;
     /* font-family: garamond; */
 }
 
 li {
-    padding: 3px;
+    padding: 4px;
 }
 
 
